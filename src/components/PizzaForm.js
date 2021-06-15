@@ -1,8 +1,24 @@
 import React from "react";
 
-function PizzaForm() {
+function PizzaForm({handleSubmit,editTopping,editSize,editVeg, setEditTopping,setEditSize,setEditVeg}) {
+
+  function handleTopping(event){
+    setEditTopping(event.target.value)
+  }
+
+  function handleSize(event) {
+    setEditSize(event.target.value)
+  }
+
+  function handleVeg(){
+    setEditVeg(true)
+  }
+  function handleNotVeg(){
+    setEditVeg(false)
+  }
+
   return (
-    <form onSubmit={null /*handle that submit*/}>
+    <form onSubmit={handleSubmit}>
       <div className="form-row">
         <div className="col-5">
           <input
@@ -10,10 +26,12 @@ function PizzaForm() {
             type="text"
             name="topping"
             placeholder="Pizza Topping"
+            value={editTopping}
+            onChange={handleTopping}
           />
         </div>
         <div className="col">
-          <select className="form-control" name="size">
+          <select className="form-control" name="size" value={editSize} onChange={handleSize}>
             <option value="Small">Small</option>
             <option value="Medium">Medium</option>
             <option value="Large">Large</option>
@@ -21,7 +39,7 @@ function PizzaForm() {
         </div>
         <div className="col">
           <div className="form-check">
-            <input
+            <input checked={editVeg? true: false} onChange={handleVeg}
               className="form-check-input"
               type="radio"
               name="vegetarian"
@@ -30,7 +48,7 @@ function PizzaForm() {
             <label className="form-check-label">Vegetarian</label>
           </div>
           <div className="form-check">
-            <input
+            <input checked={!editVeg? true: false} onChange={handleNotVeg}
               className="form-check-input"
               type="radio"
               name="vegetarian"
